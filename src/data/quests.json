@@ -1,0 +1,258 @@
+{
+  "quests": [
+    {
+      "id": "quest_first_steps",
+      "name": "First Steps",
+      "description": "Speak to the village Elder to begin your journey as a dungeon delver.",
+      "biome": "forest",
+      "level": 1,
+      "npcGiver": "elder",
+      "prerequisites": [],
+      "objectives": [
+        {
+          "id": "obj_talk_elder",
+          "type": "talk",
+          "description": "Talk to the Elder in the village",
+          "target": "elder"
+        }
+      ],
+      "rewards": {
+        "xp": 50,
+        "gold": 10
+      }
+    },
+    {
+      "id": "quest_rat_problem",
+      "name": "Rat Problem",
+      "description": "The village is overrun by rats. Clear them out to restore peace.",
+      "biome": "forest",
+      "level": 1,
+      "npcGiver": "elder",
+      "prerequisites": ["quest_first_steps"],
+      "objectives": [
+        {
+          "id": "obj_kill_rats",
+          "type": "kill",
+          "description": "Kill forest rats",
+          "target": "rat",
+          "required": 10
+        }
+      ],
+      "rewards": {
+        "xp": 100,
+        "gold": 25
+      }
+    },
+    {
+      "id": "quest_lost_amulet",
+      "name": "The Lost Amulet",
+      "description": "A traveler lost their amulet near the cave entrance. Retrieve it for them.",
+      "biome": "cave",
+      "level": 2,
+      "npcGiver": "merchant",
+      "prerequisites": ["quest_rat_problem"],
+      "objectives": [
+        {
+          "id": "obj_find_amulet",
+          "type": "collect",
+          "description": "Find the lost amulet near the cave entrance",
+          "target": "amulet",
+          "required": 1
+        }
+      ],
+      "rewards": {
+        "xp": 150,
+        "gold": 50,
+        "items": ["potion_health"]
+      }
+    },
+    {
+      "id": "quest_goblin_scout",
+      "name": "Goblin Scout",
+      "description": "Scouts report a goblin camp in the caves. Locate and assess the threat.",
+      "biome": "cave",
+      "level": 3,
+      "npcGiver": "elder",
+      "prerequisites": ["quest_lost_amulet"],
+      "objectives": [
+        {
+          "id": "obj_find_goblin_camp",
+          "type": "explore",
+          "description": "Locate the goblin camp in the caves",
+          "target": "goblin_camp",
+          "required": 1
+        },
+        {
+          "id": "obj_kill_goblins",
+          "type": "kill",
+          "description": "Defeat goblins at the camp",
+          "target": "goblin",
+          "required": 3
+        }
+      ],
+      "rewards": {
+        "xp": 200,
+        "gold": 75
+      }
+    },
+    {
+      "id": "quest_clear_ruins",
+      "name": "Clear the Ruins",
+      "description": "The ancient ruins are haunted by skeletal warriors. Clear them out.",
+      "biome": "ruins",
+      "level": 4,
+      "npcGiver": "alchemist",
+      "prerequisites": ["quest_goblin_scout"],
+      "objectives": [
+        {
+          "id": "obj_kill_skeletons",
+          "type": "kill",
+          "description": "Defeat skeleton warriors in the ruins",
+          "target": "skeleton",
+          "required": 5
+        }
+      ],
+      "rewards": {
+        "xp": 300,
+        "gold": 100,
+        "items": ["potion_mana"]
+      }
+    },
+    {
+      "id": "quest_chained_beast",
+      "name": "The Chained Beast",
+      "description": "The merchant has been captured by a beast in the caves. Save them!",
+      "biome": "cave",
+      "level": 5,
+      "npcGiver": "elder",
+      "prerequisites": ["quest_goblin_scout"],
+      "objectives": [
+        {
+          "id": "obj_find_merchant",
+          "type": "explore",
+          "description": "Find the merchant's location in the caves",
+          "target": "merchant_cage",
+          "required": 1
+        },
+        {
+          "id": "obj_free_merchant",
+          "type": "interact",
+          "description": "Free the merchant from the cage",
+          "target": "cage",
+          "required": 1
+        }
+      ],
+      "rewards": {
+        "xp": 350,
+        "gold": 150,
+        "items": ["armor_chain"]
+      }
+    },
+    {
+      "id": "quest_alchemist_ingredients",
+      "name": "Ingredients for the Alchemist",
+      "description": "The Alchemist needs rare herbs found throughout the world to craft powerful potions.",
+      "biome": "forest",
+      "level": 3,
+      "npcGiver": "alchemist",
+      "prerequisites": ["quest_rat_problem"],
+      "objectives": [
+        {
+          "id": "obj_collect_herb_1",
+          "type": "collect",
+          "description": "Collect Moonpetal herb from the forest",
+          "target": "herb_moonpetal",
+          "required": 1
+        },
+        {
+          "id": "obj_collect_herb_2",
+          "type": "collect",
+          "description": "Collect Emberroot from the caves",
+          "target": "herb_emberroot",
+          "required": 1
+        },
+        {
+          "id": "obj_collect_herb_3",
+          "type": "collect",
+          "description": "Collect Ghostleaf from the ruins",
+          "target": "herb_ghostleaf",
+          "required": 1
+        }
+      ],
+      "rewards": {
+        "xp": 250,
+        "gold": 50,
+        "items": ["potion_health", "potion_mana"]
+      }
+    },
+    {
+      "id": "quest_shadow_depths",
+      "name": "Shadow in the Depths",
+      "description": "Discover the secret cave entrance that leads to the deepest part of the dungeon.",
+      "biome": "cave",
+      "level": 6,
+      "npcGiver": "alchemist",
+      "prerequisites": ["quest_alchemist_ingredients", "quest_chained_beast"],
+      "objectives": [
+        {
+          "id": "obj_find_secret_entrance",
+          "type": "explore",
+          "description": "Find the secret cave entrance",
+          "target": "secret_cave",
+          "required": 1
+        }
+      ],
+      "rewards": {
+        "xp": 400,
+        "gold": 100,
+        "waypoint": "wp_secret_depths"
+      }
+    },
+    {
+      "id": "quest_final_stand",
+      "name": "The Final Stand",
+      "description": "The Warlord must be defeated to save the realm. Rally your strength for the ultimate battle.",
+      "biome": "boss",
+      "level": 7,
+      "npcGiver": "elder",
+      "prerequisites": ["quest_clear_ruins", "quest_shadow_depths"],
+      "objectives": [
+        {
+          "id": "obj_defeat_warlord",
+          "type": "kill",
+          "description": "Defeat the Warlord in the boss chamber",
+          "target": "warlord",
+          "required": 1
+        }
+      ],
+      "rewards": {
+        "xp": 500,
+        "gold": 500,
+        "items": ["blade_legend"]
+      }
+    },
+    {
+      "id": "quest_legacy",
+      "name": "Legacy of the Delver",
+      "description": "An ancient evil lurks in the depths. Only the true champion can defeat the hidden boss.",
+      "biome": "boss",
+      "level": 10,
+      "npcGiver": "elder",
+      "prerequisites": ["quest_final_stand"],
+      "objectives": [
+        {
+          "id": "obj_defeat_hidden_boss",
+          "type": "kill",
+          "description": "Defeat the hidden boss in the secret chamber",
+          "target": "wraith_king",
+          "required": 1
+        }
+      ],
+      "rewards": {
+        "xp": 1000,
+        "gold": 1000,
+        "items": ["staff_fire"]
+      }
+    }
+  ]
+}

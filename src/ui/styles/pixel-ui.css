@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --pixel-font: 'Press Start 2P', monospace;
+  --pixel-bg-dark: #1a1a2e;
+  --pixel-bg-medium: #16213e;
+  --pixel-bg-light: #0f3460;
+  --pixel-accent: #e94560;
+  --pixel-accent-secondary: #533483;
+  --pixel-text: #eaeaea;
+  --pixel-text-dim: #a0a0a0;
+  --pixel-gold: #ffd700;
+  --pixel-health: #ff4757;
+  --pixel-health-bg: #2d1f1f;
+  --pixel-xp: #7bed9f;
+  --pixel-xp-bg: #1f2d1f;
+  --pixel-border: #4a4a6a;
+  --pixel-shadow: rgba(0, 0, 0, 0.5);
+}
+
+.pixel-ui {
+  font-family: var(--pixel-font);
+  color: var(--pixel-text);
+  image-rendering: pixelated;
+}
+
+.pixel-container {
+  background: var(--pixel-bg-dark);
+  border: 4px solid var(--pixel-border);
+  box-shadow: 
+    0 0 0 4px var(--pixel-bg-dark),
+    8px 8px 0 var(--pixel-shadow);
+  padding: 24px;
+}
+
+.pixel-title {
+  font-size: 32px;
+  text-shadow: 4px 4px 0 var(--pixel-accent-secondary);
+  margin-bottom: 32px;
+  text-align: center;
+  color: var(--pixel-accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.pixel-button {
+  font-family: var(--pixel-font);
+  font-size: 12px;
+  background: var(--pixel-bg-light);
+  color: var(--pixel-text);
+  border: 4px solid var(--pixel-border);
+  padding: 16px 24px;
+  cursor: pointer;
+  transition: all 0.1s;
+  text-transform: uppercase;
+  margin: 8px;
+}
+
+.pixel-button:hover {
+  background: var(--pixel-accent);
+  border-color: var(--pixel-accent);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--pixel-shadow);
+}
+
+.pixel-button:active {
+  transform: translate(0, 0);
+  box-shadow: none;
+}
+
+.pixel-button.secondary {
+  background: var(--pixel-bg-medium);
+}
+
+.pixel-button.danger {
+  background: var(--pixel-health);
+  border-color: var(--pixel-health);
+}
+
+.pixel-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pixel-input {
+  font-family: var(--pixel-font);
+  font-size: 12px;
+  background: var(--pixel-bg-medium);
+  color: var(--pixel-text);
+  border: 4px solid var(--pixel-border);
+  padding: 12px 16px;
+  outline: none;
+}
+
+.pixel-input:focus {
+  border-color: var(--pixel-accent);
+}
+
+.pixel-bar-container {
+  background: var(--pixel-bg-medium);
+  border: 2px solid var(--pixel-border);
+  height: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pixel-bar {
+  height: 100%;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.pixel-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent);
+}
+
+.pixel-health-bar {
+  background: var(--pixel-health);
+}
+
+.pixel-xp-bar {
+  background: var(--pixel-xp);
+}
+
+.pixel-bar-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8px;
+  text-shadow: 1px 1px 0 var(--pixel-shadow);
+  z-index: 1;
+}
+
+.pixel-screen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.pixel-modal {
+  background: var(--pixel-bg-dark);
+  border: 4px solid var(--pixel-border);
+  box-shadow: 8px 8px 0 var(--pixel-shadow);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.pixel-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.pixel-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.pixel-label {
+  font-size: 10px;
+  color: var(--pixel-text-dim);
+  text-transform: uppercase;
+}
+
+.pixel-value {
+  font-size: 12px;
+  color: var(--pixel-text);
+}
+
+.pixel-value.gold {
+  color: var(--pixel-gold);
+}
+
+.pixel-divider {
+  height: 4px;
+  background: var(--pixel-border);
+  margin: 16px 0;
+}
+
+.pixel-tooltip {
+  position: absolute;
+  background: var(--pixel-bg-dark);
+  border: 2px solid var(--pixel-border);
+  padding: 8px;
+  font-size: 8px;
+  z-index: 200;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.slot {
+  width: 48px;
+  height: 48px;
+  background: var(--pixel-bg-medium);
+  border: 2px solid var(--pixel-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.slot:hover {
+  border-color: var(--pixel-accent);
+}
+
+.slot.selected {
+  border-color: var(--pixel-gold);
+  box-shadow: 0 0 8px var(--pixel-gold);
+}
+
+.slot.filled {
+  background: var(--pixel-bg-light);
+}
+
+.character-card {
+  background: var(--pixel-bg-medium);
+  border: 4px solid var(--pixel-border);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.character-card:hover {
+  border-color: var(--pixel-accent);
+  transform: translateY(-4px);
+}
+
+.character-card.selected {
+  border-color: var(--pixel-gold);
+  box-shadow: 0 0 16px var(--pixel-gold);
+}
+
+.character-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  background: var(--pixel-bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  border: 2px solid var(--pixel-border);
+}
+
+.quest-item {
+  background: var(--pixel-bg-medium);
+  border: 2px solid var(--pixel-border);
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.quest-item.completed {
+  opacity: 0.6;
+}
+
+.quest-item.active {
+  border-color: var(--pixel-accent);
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 48px);
+  gap: 4px;
+}
+
+.equipment-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.minimap {
+  background: var(--pixel-bg-medium);
+  border: 2px solid var(--pixel-border);
+  width: 120px;
+  height: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.minimap-player {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--pixel-gold);
+  border-radius: 0;
+}
+
+.minimap-enemy {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--pixel-health);
+}
+
+.keybind-hint {
+  font-size: 8px;
+  color: var(--pixel-text-dim);
+  margin-top: 4px;
+}
+
+.screen-fade-enter {
+  opacity: 0;
+}
+
+.screen-fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.screen-fade-exit {
+  opacity: 1;
+}
+
+.screen-fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.flash-text {
+  animation: flash 0.5s ease-in-out;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

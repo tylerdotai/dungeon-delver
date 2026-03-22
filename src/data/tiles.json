@@ -1,0 +1,234 @@
+{
+  "tiles": [
+    {
+      "id": 0,
+      "name": "grass",
+      "biome": "forest",
+      "color": "#4a7c3f",
+      "walkable": true,
+      "solid": false,
+      "damage": 0,
+      "description": "Lush green grass"
+    },
+    {
+      "id": 1,
+      "name": "tree",
+      "biome": "forest",
+      "color": "#2d5a27",
+      "walkable": false,
+      "solid": true,
+      "damage": 0,
+      "description": "Thick forest tree"
+    },
+    {
+      "id": 2,
+      "name": "forest_floor",
+      "biome": "forest",
+      "color": "#5c4033",
+      "walkable": true,
+      "solid": false,
+      "damage": 0,
+      "description": "Forest floor debris"
+    },
+    {
+      "id": 3,
+      "name": "stone_floor",
+      "biome": "cave",
+      "color": "#5a5a5a",
+      "walkable": true,
+      "solid": false,
+      "damage": 0,
+      "description": "Cave stone floor"
+    },
+    {
+      "id": 4,
+      "name": "cave_wall",
+      "biome": "cave",
+      "color": "#3d3d3d",
+      "walkable": false,
+      "solid": true,
+      "damage": 0,
+      "description": "Solid cave wall"
+    },
+    {
+      "id": 5,
+      "name": "stalactite",
+      "biome": "cave",
+      "color": "#7a7a7a",
+      "walkable": false,
+      "solid": true,
+      "damage": 2,
+      "description": "Sharp stalactite - causes damage"
+    },
+    {
+      "id": 6,
+      "name": "ruins_floor",
+      "biome": "ruins",
+      "color": "#8b7355",
+      "walkable": true,
+      "solid": false,
+      "damage": 0,
+      "description": "Ancient ruins floor"
+    },
+    {
+      "id": 7,
+      "name": "ruins_wall",
+      "biome": "ruins",
+      "color": "#6b5344",
+      "walkable": false,
+      "solid": true,
+      "damage": 0,
+      "description": "Crumbling ruins wall"
+    },
+    {
+      "id": 8,
+      "name": "rubble",
+      "biome": "ruins",
+      "color": "#4a4a4a",
+      "walkable": true,
+      "solid": false,
+      "damage": 1,
+      "description": "Dangerous rubble"
+    },
+    {
+      "id": 9,
+      "name": "boss_door",
+      "biome": "boss",
+      "color": "#8b0000",
+      "walkable": false,
+      "solid": true,
+      "damage": 0,
+      "description": "Massive boss chamber door"
+    },
+    {
+      "id": 10,
+      "name": "boss_floor",
+      "biome": "boss",
+      "color": "#4a004a",
+      "walkable": true,
+      "solid": false,
+      "damage": 0,
+      "description": "Boss arena floor"
+    },
+    {
+      "id": 11,
+      "name": "boss_wall",
+      "biome": "boss",
+      "color": "#2a002a",
+      "walkable": false,
+      "solid": true,
+      "damage": 0,
+      "description": "Boss chamber wall"
+    },
+    {
+      "id": 12,
+      "name": "water",
+      "biome": "forest",
+      "color": "#1e4d6b",
+      "walkable": false,
+      "solid": false,
+      "damage": 0,
+      "description": "Forest stream"
+    },
+    {
+      "id": 13,
+      "name": "lava",
+      "biome": "cave",
+      "color": "#cf3400",
+      "walkable": false,
+      "solid": false,
+      "damage": 10,
+      "description": "Molten lava - high damage"
+    },
+    {
+      "id": 14,
+      "name": "void",
+      "biome": "boss",
+      "color": "#0a0a0a",
+      "walkable": false,
+      "solid": false,
+      "damage": 0,
+      "description": "The void beyond"
+    },
+    {
+      "id": 15,
+      "name": "dirt",
+      "biome": "forest",
+      "color": "#8b6914",
+      "walkable": true,
+      "solid": false,
+      "damage": 0,
+      "description": "Trodden dirt path"
+    },
+    {
+      "id": 16,
+      "name": "stone",
+      "biome": "cave",
+      "color": "#6a6a6a",
+      "walkable": true,
+      "solid": false,
+      "damage": 0,
+      "description": "Loose stone floor"
+    },
+    {
+      "id": 17,
+      "name": "wall",
+      "biome": "ruins",
+      "color": "#4a4a4a",
+      "walkable": false,
+      "solid": true,
+      "damage": 0,
+      "description": "Stone wall"
+    },
+    {
+      "id": 18,
+      "name": "chest",
+      "biome": "forest",
+      "color": "#8b4513",
+      "walkable": false,
+      "solid": true,
+      "damage": 0,
+      "description": "Treasure chest"
+    },
+    {
+      "id": 19,
+      "name": "portal",
+      "biome": "ruins",
+      "color": "#9932cc",
+      "walkable": true,
+      "solid": false,
+      "damage": 0,
+      "description": "Mystical portal"
+    }
+  ],
+  "biomes": {
+    "forest": {
+      "name": "Forest",
+      "primaryTile": 0,
+      "wallTile": 1,
+      "dangerLevel": 1,
+      "spawnEnemies": ["goblin", "wolf", "deer"]
+    },
+    "cave": {
+      "name": "Cave",
+      "primaryTile": 3,
+      "wallTile": 4,
+      "dangerLevel": 2,
+      "spawnEnemies": ["bat", "spider", "cave_rat"]
+    },
+    "ruins": {
+      "name": "Ruins",
+      "primaryTile": 6,
+      "wallTile": 7,
+      "dangerLevel": 3,
+      "spawnEnemies": ["skeleton", "zombie", "ghost"]
+    },
+    "boss": {
+      "name": "Boss Chamber",
+      "primaryTile": 10,
+      "wallTile": 11,
+      "dangerLevel": 4,
+      "spawnEnemies": []
+    }
+  }
+}
