@@ -77,9 +77,12 @@ interface GameStore {
   resetGame: () => void;
 }
 
+const WORLD_WIDTH = 2000;
+const WORLD_HEIGHT = 2000;
+
 const initialPlayer = {
-  x: 100,
-  y: 100,
+  x: WORLD_WIDTH / 2,
+  y: WORLD_HEIGHT / 2,
   width: 32,
   height: 32,
   stats: {
@@ -91,9 +94,6 @@ const initialPlayer = {
     level: 1,
   },
 };
-
-const WORLD_WIDTH = 2000;
-const WORLD_HEIGHT = 2000;
 
 export const useGameStore = create<GameStore>((set, get) => ({
   gameState: 'menu',

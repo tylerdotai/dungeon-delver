@@ -8,6 +8,7 @@ export interface InputState {
   mousePosition: Vector2;
   mouseDown: boolean;
   mouseClicked: boolean;
+  mobileDirection: Vector2;
 }
 
 export type InputCallback = (state: InputState) => void;
@@ -18,6 +19,7 @@ export class InputManager {
     mousePosition: { x: 0, y: 0 },
     mouseDown: false,
     mouseClicked: false,
+    mobileDirection: { x: 0, y: 0 },
   };
   
   private callbacks: Set<InputCallback> = new Set();
@@ -81,10 +83,16 @@ export class InputManager {
   }
 
   getMovementVector(): Vector2 {
+    const keyboardX = (this.isKeyPressed('right') ? 1 : 0) - (this.isKeyPressed('left') ? 1 : 0);
+    const keyboardY = (this.isKeyPressed('down') ? 1 : 0) - (this.isKeyPressed('up') ? 1 : 0);
     return {
-      x: (this.isKeyPressed('right') ? 1 : 0) - (this.isKeyPressed('left') ? 1 : 0),
-      y: (this.isKeyPressed('down') ? 1 : 0) - (this.isKeyPressed('up') ? 1 : 0),
+      x: keyboardX + this.state.mobileDirection.x,
+      y: keyboardY + this.state.mobileDirection.y,
     };
+  }
+
+  setMobileDirection(dir: Vector2): void {
+    this.state.mobileDirection = dir;
   }
 
   onInput(callback: InputCallback): () => void {
@@ -135,4 +143,14 @@ export class InputManager {
 
 export const createInputManager = (canvas: HTMLCanvasElement): InputManager => {
   return new InputManager(canvas);
+};
+
+let globalInputManager: InputManager | null = null;
+
+export const setGlobalInputManager = (manager: InputManager): void => {
+  globalInputManager = manager;
+};
+
+export const getGlobalInputManager = (): InputManager | null => {
+  return globalInputManager;
 };

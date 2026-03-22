@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useGameStore } from '../../store/gameStore';
+import { getGlobalInputManager } from '../../game/engine';
 
 interface MobileControlsProps {
   onAttack?: () => void;
@@ -29,6 +30,7 @@ export function MobileControls({
     left: false,
     right: false,
   });
+  const [isMobileInput, setIsMobileInput] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -90,36 +92,21 @@ export function MobileControls({
   }, []);
 
   useEffect(() => {
-    let interval: number | null = null;
-    
-    const updatePosition = () => {
-      const store = useGameStore.getState();
-      if (store.gameState !== 'playing') return;
-
-      const speed = 3;
+    const inputManager = getGlobalInputManager();
+    if (inputManager) {
+      if (!isMobileInput) {
+        inputManager.setMobileDirection({ x: 0, y: 0 });
+        return;
+      }
       let dx = 0;
       let dy = 0;
-      
-      if (directions.up) dy -= speed;
-      if (directions.down) dy += speed;
-      if (directions.left) dx -= speed;
-      if (directions.right) dx += speed;
-
-      if (dx !== 0 || dy !== 0) {
-        const newX = store.player.x + dx;
-        const newY = store.player.y + dy;
-        store.updatePlayerPosition(newX, newY);
-      }
-    };
-
-    if (directions.up || directions.down || directions.left || directions.right) {
-      interval = window.setInterval(updatePosition, 16);
+      if (directions.up) dy -= 1;
+      if (directions.down) dy += 1;
+      if (directions.left) dx -= 1;
+      if (directions.right) dx += 1;
+      inputManager.setMobileDirection({ x: dx, y: dy });
     }
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [directions]);
+  }, [directions, isMobileInput]);
 
   if (gameState !== 'playing') return null;
 
@@ -166,42 +153,42 @@ export function MobileControls({
           <div />
           <button
             style={directions.up ? activeButtonStyle : buttonStyle}
-            onTouchStart={() => setDirections(d => ({ ...d, up: true }))}
-            onTouchEnd={() => setDirections(d => ({ ...d, up: false }))}
-            onMouseDown={() => setDirections(d => ({ ...d, up: true }))}
-            onMouseUp={() => setDirections(d => ({ ...d, up: false }))}
-            onMouseLeave={() => setDirections(d => ({ ...d, up: false }))}
+            onTouchStart={() => { setIsMobileInput(true); setDirections(d => ({ ...d, up: true })); }}
+            onTouchEnd={() => { setIsMobileInput(false); setDirections(d => ({ ...d, up: false })); }}
+            onMouseDown={() => { setIsMobileInput(true); setDirections(d => ({ ...d, up: true })); }}
+            onMouseUp={() => { setIsMobileInput(false); setDirections(d => ({ ...d, up: false })); }}
+            onMouseLeave={() => { setIsMobileInput(false); setDirections(d => ({ ...d, up: false })); }}
           >
             ▲
           </button>
           <div />
           <button
             style={directions.left ? activeButtonStyle : buttonStyle}
-            onTouchStart={() => setDirections(d => ({ ...d, left: true }))}
-            onTouchEnd={() => setDirections(d => ({ ...d, left: false }))}
-            onMouseDown={() => setDirections(d => ({ ...d, left: true }))}
-            onMouseUp={() => setDirections(d => ({ ...d, left: false }))}
-            onMouseLeave={() => setDirections(d => ({ ...d, left: false }))}
+            onTouchStart={() => { setIsMobileInput(true); setDirections(d => ({ ...d, left: true })); }}
+            onTouchEnd={() => { setIsMobileInput(false); setDirections(d => ({ ...d, left: false })); }}
+            onMouseDown={() => { setIsMobileInput(true); setDirections(d => ({ ...d, left: true })); }}
+            onMouseUp={() => { setIsMobileInput(false); setDirections(d => ({ ...d, left: false })); }}
+            onMouseLeave={() => { setIsMobileInput(false); setDirections(d => ({ ...d, left: false })); }}
           >
             ◀
           </button>
           <button
             style={directions.down ? activeButtonStyle : buttonStyle}
-            onTouchStart={() => setDirections(d => ({ ...d, down: true }))}
-            onTouchEnd={() => setDirections(d => ({ ...d, down: false }))}
-            onMouseDown={() => setDirections(d => ({ ...d, down: true }))}
-            onMouseUp={() => setDirections(d => ({ ...d, down: false }))}
-            onMouseLeave={() => setDirections(d => ({ ...d, down: false }))}
+            onTouchStart={() => { setIsMobileInput(true); setDirections(d => ({ ...d, down: true })); }}
+            onTouchEnd={() => { setIsMobileInput(false); setDirections(d => ({ ...d, down: false })); }}
+            onMouseDown={() => { setIsMobileInput(true); setDirections(d => ({ ...d, down: true })); }}
+            onMouseUp={() => { setIsMobileInput(false); setDirections(d => ({ ...d, down: false })); }}
+            onMouseLeave={() => { setIsMobileInput(false); setDirections(d => ({ ...d, down: false })); }}
           >
             ▼
           </button>
           <button
             style={directions.right ? activeButtonStyle : buttonStyle}
-            onTouchStart={() => setDirections(d => ({ ...d, right: true }))}
-            onTouchEnd={() => setDirections(d => ({ ...d, right: false }))}
-            onMouseDown={() => setDirections(d => ({ ...d, right: true }))}
-            onMouseUp={() => setDirections(d => ({ ...d, right: false }))}
-            onMouseLeave={() => setDirections(d => ({ ...d, right: false }))}
+            onTouchStart={() => { setIsMobileInput(true); setDirections(d => ({ ...d, right: true })); }}
+            onTouchEnd={() => { setIsMobileInput(false); setDirections(d => ({ ...d, right: false })); }}
+            onMouseDown={() => { setIsMobileInput(true); setDirections(d => ({ ...d, right: true })); }}
+            onMouseUp={() => { setIsMobileInput(false); setDirections(d => ({ ...d, right: false })); }}
+            onMouseLeave={() => { setIsMobileInput(false); setDirections(d => ({ ...d, right: false })); }}
           >
             ▶
           </button>

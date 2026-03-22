@@ -1,11 +1,9 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useGameStore } from '../../store/gameStore';
-import { createRenderer, createInputManager, createGameLoop, type Renderer, type InputManager, type GameLoop } from '../../game/engine';
+import { createRenderer, createInputManager, createGameLoop, setGlobalInputManager, type Renderer, type InputManager, type GameLoop } from '../../game/engine';
 import { aabbOverlap } from '../../game/engine/collision';
 
 const TILE_SIZE = 32;
-const MAP_COLS = 20;
-const MAP_ROWS = 15;
 
 const TILE_COLORS: Record<string, string> = {
   floor: '#2d2d44',
@@ -48,6 +46,7 @@ export function GameCanvas({ onAttack }: GameCanvasProps) {
 
     rendererRef.current = createRenderer(ctx, canvas.width, canvas.height);
     inputRef.current = createInputManager(canvas);
+    setGlobalInputManager(inputRef.current);
     inputRef.current.attach();
     gameLoopRef.current = createGameLoop();
     gameLoopRef.current.start();
@@ -152,32 +151,42 @@ export function GameCanvas({ onAttack }: GameCanvasProps) {
     const canvasWidth = canvas.width;
     const canvasHeight = canvas.height;
     
+    const cameraX = playerX - canvasWidth / 2;
+    const cameraY = playerY - canvasHeight / 2;
+    const maxCameraX = Math.max(0, worldWidth - canvasWidth);
+    const maxCameraY = Math.max(0, worldHeight - canvasHeight);
+    
     cameraRef.current = {
-      x: Math.max(0, Math.min(playerX - canvasWidth / 2, worldWidth - canvasWidth)),
-      y: Math.max(0, Math.min(playerY - canvasHeight / 2, worldHeight - canvasHeight)),
+      x: Math.max(0, Math.min(cameraX, maxCameraX)),
+      y: Math.max(0, Math.min(cameraY, maxCameraY)),
     };
     renderer.setCamera(cameraRef.current.x, cameraRef.current.y);
 
     ctx.fillStyle = TILE_COLORS.floor;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
+    const worldTileCols = Math.ceil(worldWidth / TILE_SIZE);
+    const worldTileRows = Math.ceil(worldHeight / TILE_SIZE);
+    
     const startCol = Math.floor(cameraRef.current.x / TILE_SIZE);
     const endCol = startCol + Math.ceil(canvasWidth / TILE_SIZE) + 1;
     const startRow = Math.floor(cameraRef.current.y / TILE_SIZE);
     const endRow = startRow + Math.ceil(canvasHeight / TILE_SIZE) + 1;
 
-    for (let row = startRow; row < endRow && row < MAP_ROWS; row++) {
-      for (let col = startCol; col < endCol && col < MAP_COLS; col++) {
-        if (col < 0 || row < 0) continue;
+    for (let row = startRow; row < endRow; row++) {
+      for (let col = startCol; col < endCol; col++) {
+        if (col < 0 || row < 0 || col >= worldTileCols || row >= worldTileRows) continue;
         
-        const isBorder = col === 0 || col === MAP_COLS - 1 || row === 0 || row === MAP_ROWS - 1;
+        const isBorder = col === 0 || col === worldTileCols - 1 || row === 0 || row === worldTileRows - 1;
         const tileX = col * TILE_SIZE;
         const tileY = row * TILE_SIZE;
         
         if (isBorder) {
           ctx.fillStyle = TILE_COLORS.wall;
-          ctx.fillRect(tileX - cameraRef.current.x, tileY - cameraRef.current.y, TILE_SIZE, TILE_SIZE);
+        } else {
+          ctx.fillStyle = TILE_COLORS.floor;
         }
+        ctx.fillRect(tileX - cameraRef.current.x, tileY - cameraRef.current.y, TILE_SIZE, TILE_SIZE);
       }
     }
 
