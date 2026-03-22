@@ -5,6 +5,8 @@ import {
   TitleScreen,
   CharacterSelect,
   HUD,
+  GameCanvas,
+  MobileControls,
   InventoryScreen,
   QuestLogScreen,
   PauseMenu,
@@ -111,7 +113,13 @@ export function Game() {
 
       {gameState === 'playing' && (
         <>
+          <GameCanvas />
           <HUD />
+          <MobileControls 
+            onInventory={handleOpenInventory}
+            onQuests={handleOpenQuests}
+            onPause={handleTogglePause}
+          />
           {showInventory && (
             <InventoryScreen onClose={handleCloseInventory} />
           )}
