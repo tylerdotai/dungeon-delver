@@ -1,73 +1,48 @@
-# React + TypeScript + Vite
+# Dungeon Delver
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A browser-based RPG game built with TypeScript, Vite, and HTML5 Canvas.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Procedural World**: 2000x2000 tile map with 4 biomes (Forest, Cave, Ruins, Boss)
+- **Combat System**: Real-time combat with enemy AI (patrol, chase), damage formula, XP rewards
+- **Inventory**: 24-slot grid with drag-drop equipment, rarity system (common/rare/epic/legendary)
+- **Quest System**: 10 quests with objectives, rewards, and NPC givers
+- **NPCs**: Elder (quests), Merchant (shop), Alchemist (potions)
+- **UI Screens**: TitleScreen, CharacterSelect, HUD, Inventory, QuestLog, PauseMenu
+- **Save/Load**: localStorage persistence
+- **Controls**: I=inventory, Q=quests, ESC=pause
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Install dependencies
+npm install
 
-## Expanding the ESLint configuration
+# Start development server
+npm run dev
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Run tests
+npm run test
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build for production
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- TypeScript
+- Vite
+- HTML5 Canvas
+- Vitest (testing)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Classes
+
+- **Player**: Character with stats, inventory, combat
+- **Enemy**: AI enemies with patrol/chase behavior
+- **NPC**: Quest givers and shopkeepers (Elder, Merchant, Alchemist)
+- **Quest**: Quest tracking and objectives
+
+## License
+
+MIT
